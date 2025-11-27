@@ -18,13 +18,13 @@
         }
 
         /* ---------------------------------------------------- */
-        /* --- NOWA SEKCJA CSS: TŁO NAGŁÓWKA (Ruchome Kształty) --- */
+        /* --- TŁO NAGŁÓWKA (Ruchome Kolorowe Kształty) --- */
         /* ---------------------------------------------------- */
         .animated-header {
             position: relative;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.5); /* Lekka przezroczystość */
-            backdrop-filter: blur(8px); /* Efekt rozmycia (Glassmorphism) */
+            background: rgba(255, 255, 255, 0.5); 
+            backdrop-filter: blur(8px);
             text-align: center;
             padding: 40px 20px;
             border-bottom-left-radius: 30px;
@@ -37,7 +37,7 @@
 
         .animated-header h1, .animated-header p {
             position: relative;
-            z-index: 15; /* Tekst musi być nad kształtami */
+            z-index: 15;
         }
         
         .shapes {
@@ -55,26 +55,25 @@
             list-style: none;
             width: 20px;
             height: 20px;
-            background: rgba(255, 255, 255, 0.2);
             animation: animate 25s linear infinite;
             bottom: -150px;
             border-radius: 50%;
         }
 
-        /* Ustawienie różnych rozmiarów i animacji dla efektu chaosu */
-        .shapes li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
-        .shapes li:nth-child(2){ left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
-        .shapes li:nth-child(3){ left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
-        .shapes li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; background: rgba(255, 255, 255, 0.4); }
-        .shapes li:nth-child(5){ left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
-        .shapes li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; background: rgba(255, 255, 255, 0.3); }
+        /* Ustawienie różnych kolorów, rozmiarów i animacji */
+        .shapes li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; background: rgba(255, 255, 100, 0.7); /* ŻÓŁTY */ }
+        .shapes li:nth-child(2){ left: 10%; width: 35px; height: 35px; animation-delay: 2s; animation-duration: 12s; background: rgba(100, 255, 100, 0.7); /* ZIELONY */ }
+        .shapes li:nth-child(3){ left: 70%; width: 50px; height: 50px; animation-delay: 4s; background: rgba(255, 100, 100, 0.7); /* RÓŻOWY */ }
+        .shapes li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; background: rgba(100, 100, 255, 0.7); /* NIEBIESKI */ }
+        .shapes li:nth-child(5){ left: 65%; width: 25px; height: 25px; animation-delay: 0s; animation-duration: 9s; background: rgba(255, 255, 255, 0.8); }
+        .shapes li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; background: rgba(255, 100, 255, 0.7); /* FIOLETOWY */ }
 
         @keyframes animate {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
             100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
         }
         /* ---------------------------------------------------- */
-        /* --- KONIEC NOWEJ SEKCJI CSS --- */
+        /* --- KONIEC CSS DLA NAGŁÓWKA --- */
         /* ---------------------------------------------------- */
 
 
@@ -101,47 +100,27 @@
             z-index: 20;
         }
 
-        /* --- KARTY OFERT (Styl 3D + Animacja wjazdu) --- */
+        /* --- KARTY OFERT (Animacje jak poprzednio) --- */
         .offer-card {
-            background: #fff;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 35px;
-            padding: 30px;
-            position: relative;
-            transition: transform 0.3s ease;
+            background: #fff; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 35px; padding: 30px; position: relative; transition: transform 0.3s ease;
             border: 1px solid rgba(255,255,255,0.5);
-            
-            /* Ustawienia animacji wjazdu */
-            opacity: 0; /* Domyślnie niewidoczne */
-            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0; animation: fadeInUp 0.8s ease-out forwards;
         }
-
-        /* Opóźnienia dla kolejnych kart (efekt kaskady) */
         .offer-card:nth-child(1) { animation-delay: 0.2s; }
         .offer-card:nth-child(2) { animation-delay: 0.4s; }
         .offer-card:nth-child(3) { animation-delay: 0.6s; }
         .offer-card:nth-child(4) { animation-delay: 0.8s; }
         .offer-card:nth-child(5) { animation-delay: 1.0s; }
         .offer-card:nth-child(6) { animation-delay: 1.2s; }
-
-        .offer-card:hover {
-            transform: translateY(-8px);
-        }
+        .offer-card:hover { transform: translateY(-8px); }
 
         /* Badge "TOP" + Animacja Pulsowania */
         .badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            position: absolute; top: 20px; right: 20px;
             background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
-            animation: pulse 2s infinite;
+            color: white; padding: 8px 18px; border-radius: 50px; font-weight: 700; font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4); animation: pulse 2s infinite;
         }
 
         /* Nazwy Banków */
@@ -169,7 +148,8 @@
         /* Lista zalet */
         .features { list-style: none; padding: 0; margin: 0; font-size: 1.1rem; color: #555; }
         .features li { margin-bottom: 8px; display: flex; align-items: center; }
-        .features li::before { content: '●'; color: #00c6ff; font-size: 1.2rem; margin-right: 10px; }
+        /* Emotikon jako znak listy */
+        .features li::before { content: '⭐'; font-size: 1rem; margin-right: 10px; } 
 
         /* --- PRZYCISKI --- */
         .toggle-btn {
@@ -213,9 +193,17 @@
         }
         .insta-btn:hover { transform: scale(1.05); }
 
+        /* STOPKA */
         footer {
             text-align: center; color: #fff; font-size: 0.9rem; opacity: 0.8; padding: 30px 20px;
         }
+        /* Styl dla licznika (dostosowanie do estetyki strony) */
+        footer #counter-container {
+            margin-top: 10px;
+            font-weight: bold;
+            display: block;
+        }
+
 
         /* --- KLUCZOWE KLATKI ANIMACJI (Keyframes) --- */
         @keyframes fadeInUp {
@@ -238,8 +226,8 @@
 <body>
 
     <header class="animated-header">
-        <h1>Łowca Promocji Bankowych</h1>
-        <p>Najlepsze bonusy na start czekają na Ciebie!</p>
+        <h1>💰 Łowca Promocji Bankowych 🏦</h1>
+        <p>🥳 Najlepsze bonusy na start czekają na Ciebie!</p>
         
         <ul class="shapes">
             <li></li>
@@ -250,6 +238,7 @@
             <li></li>
         </ul>
     </header>
+
     <div class="container">
 
         <div class="offer-card">
@@ -257,7 +246,7 @@
             <div class="offer-layout">
                 <div class="offer-content">
                     <div class="bank-name bank-pko">PKO Bank Polski</div>
-                    <div class="bonus-amount">Zyskaj łącznie do <span class="bonus-highlight">600 zł</span></div>
+                    <div class="bonus-amount">Zyskaj łącznie do <span class="bonus-highlight">600 zł</span> 🎁</div>
                     <ul class="features">
                         <li>Konto za 0 zł (przy aktywności)</li>
                         <li>Nagrody za płatności telefonem</li>
@@ -267,7 +256,7 @@
                 <div class="offer-actions">
                     <button class="toggle-btn">▼ Zobacz warunki (600 zł)</button>
                     <div class="details-content">
-                        <strong>Jak zgarnąć 600 zł?</strong>
+                        <strong>Jak zgarnąć 600 zł? 🧐</strong>
                         <ol>
                             <li>Do 31.12.2025 otwórz konto z kartą i kodem: <strong>ZYSK</strong>.</li>
                             <li><strong>Nagroda I (100 zł):</strong> Zapłać min. 3 razy telefonem (Google/Apple Pay) w 1. miesiącu.</li>
@@ -286,7 +275,7 @@
             <div class="offer-layout">
                 <div class="offer-content">
                     <div class="bank-name bank-santander">Santander Bank Polska</div>
-                    <div class="bonus-amount">Do <span class="bonus-highlight">700 zł</span> gotówki lub <span class="bonus-highlight">1200 zł</span> zwrotu</div>
+                    <div class="bonus-amount">Do <span class="bonus-highlight">700 zł</span> gotówki lub <span class="bonus-highlight">1200 zł</span> zwrotu 🤩</div>
                     <ul class="features">
                         <li>Wybierasz: Gotówka na start czy zwroty za rachunki?</li>
                         <li>Dodatkowe 300 zł premii ekstra</li>
@@ -296,14 +285,14 @@
                 <div class="offer-actions">
                     <button class="toggle-btn">▼ Zobacz warunki (700/1200 zł)</button>
                     <div class="details-content">
-                        <strong>Opcja 1: Do 700 zł w gotówce</strong>
+                        <strong>Opcja 1: Do 700 zł w gotówce 🤑</strong>
                         <ul>
                             <li><strong>200 zł:</strong> (Miesiąc 1 i 2) Wpływ 1000 zł + 5 płatności kartą/BLIK (min. 100 zł łącznię).</li>
                             <li><strong>200 zł:</strong> (Miesiąc 3 i 4) To samo: wpływ 1000 zł + 5 płatności (min. 100 zł).</li>
                             <li><strong>300 zł:</strong> Ekstra bonus za spełnienie wszystkich powyższych.</li>
                         </ul>
                         <hr style="border:0; border-top:1px dashed #ccc; margin:10px 0;">
-                        <strong>Opcja 2: Do 1200 zł zwrotu</strong>
+                        <strong>Opcja 2: Do 1200 zł zwrotu 🛍️</strong>
                         <ul>
                             <li>5% zwrotu za zakupy w internecie kartą/BLIK (max 100 zł miesięcznie przez rok).</li>
                         </ul>
@@ -317,7 +306,7 @@
             <div class="offer-layout">
                 <div class="offer-content">
                     <div class="bank-name bank-pekao">Bank Pekao SA (Żubr)</div>
-                    <div class="bonus-amount">Do <span class="bonus-highlight">400 zł</span> po prostu korzystając</div>
+                    <div class="bonus-amount">Do <span class="bonus-highlight">400 zł</span> po prostu korzystając 💰</div>
                     <ul class="features">
                         <li>Konto Przekorzystne za 0 zł</li>
                         <li>Świetna aplikacja PeoPay</li>
@@ -327,7 +316,7 @@
                 <div class="offer-actions">
                     <button class="toggle-btn">▼ Zobacz warunki (400 zł)</button>
                     <div class="details-content">
-                        <strong>Jak zdobyć nagrody?</strong>
+                        <strong>Jak zdobyć nagrody? 👇</strong>
                         <ol>
                             <li>Załóż konto na selfie z kartą i aplikacją. Wyraź zgody marketingowe.</li>
                             <li>Zapewnij wpływ min. 500 zł.</li>
@@ -343,7 +332,7 @@
             <div class="offer-layout">
                 <div class="offer-content">
                     <div class="bank-name bank-bnp">BNP Paribas - Promocja</div>
-                    <div class="bonus-amount">Konto z premią na start</div>
+                    <div class="bonus-amount">Konto z premią na start 🚀</div>
                     <ul class="features">
                         <li>Konto otwierane przez internet (GOmobile)</li>
                         <li>Proste zasady aktywności</li>
@@ -367,7 +356,7 @@
             <div class="offer-layout">
                 <div class="offer-content">
                     <div class="bank-name bank-velo">Velo Bank</div>
-                    <div class="bonus-amount">VeloKonto i wysoki Moneyback</div>
+                    <div class="bonus-amount">VeloKonto i wysoki Moneyback ✨</div>
                     <ul class="features">
                         <li>Zwroty za zakupy (VeloChwile)</li>
                         <li>Atrakcyjne oprocentowanie oszczędności</li>
@@ -387,7 +376,7 @@
             <div class="offer-layout">
                 <div class="offer-content">
                     <div class="bank-name bank-bnp">BNP Paribas - Opcja 2</div>
-                    <div class="bonus-amount">Druga promocja specjalna</div>
+                    <div class="bonus-amount">Druga promocja specjalna 🥳</div>
                     <ul class="features">
                         <li>Alternatywna oferta dla nowych klientów</li>
                     </ul>
@@ -403,8 +392,8 @@
         </div>
 
         <div class="contact-box">
-            <h3>Masz pytania lub problem?</h3>
-            <p>Napisz do mnie śmiało na Instagramie, chętnie pomogę!</p>
+            <h3>Masz pytania lub problem? ❓</h3>
+            <p>Napisz do mnie śmiało na Instagramie, chętnie pomogę! 👇</p>
             <a href="https://www.instagram.com/rozmiibro/" target="_blank" class="insta-btn">📸 Instagram @rozmiibro</a>
         </div>
 
@@ -412,6 +401,12 @@
 
     <footer>
         <p>Strona informacyjna. Linki afiliacyjne. Przed założeniem konta sprawdź regulamin na stronie banku.</p>
+        
+        <div id="counter-container">
+            <a href='http://www.counterliczniki.com'>licznik odwiedzin Joomla</a> 
+            <script type='text/javascript' src='https://www.counterliczniki.com/auth.php?id=0ad9b392e5057e0063cc677c59708c620c99821e'></script>
+            <script type="text/javascript" src="https://www.counterliczniki.com/pl/home/counter/1448771/t/10"></script>
+        </div>
     </footer>
 
     <script>
