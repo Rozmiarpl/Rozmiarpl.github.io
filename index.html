@@ -3,308 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixelowy Łowca Promocji Bankowych</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <title>Bankowe Okazje - Edycja 3D</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- STYL GLÓWNY (PIKSELE I KOLORY) --- */
+        /* --- STYL GŁÓWNY (PIXAR / 3D / CARTOON) --- */
         body {
-            /* Retro czcionka */
-            font-family: 'VT323', monospace; 
+            font-family: 'Fredoka', sans-serif;
             margin: 0;
             padding: 0;
-            /* Tło w stylu kolorowych pikseli/bloków */
-            background-color: #222;
-            background-image: 
-                linear-gradient(45deg, #ff0000 25%, transparent 25%), 
-                linear-gradient(-45deg, #00ff00 25%, transparent 25%), 
-                linear-gradient(45deg, transparent 75%, #0000ff 75%), 
-                linear-gradient(-45deg, transparent 75%, #ffff00 75%);
-            background-size: 20px 20px;
-            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-            color: #333;
-            font-size: 1.2rem; /* Trochę większa czcionka dla czytelności retro */
+            /* Tło: Miękki gradient jak niebo w bajce */
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+            color: #444;
+            min-height: 100vh;
         }
 
         header {
-            background: #111;
-            border-bottom: 4px solid #fff;
-            color: #fff;
+            background: rgba(255, 255, 255, 0.9);
             text-align: center;
-            padding: 30px 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            padding: 40px 20px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
         }
 
         header h1 {
             margin: 0;
             font-size: 3rem;
-            text-shadow: 3px 3px 0px #ff0000, -3px -3px 0px #0000ff;
+            background: -webkit-linear-gradient(#00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
         }
 
         header p {
-            font-size: 1.5rem;
-            color: #ccc;
+            font-size: 1.3rem;
+            color: #666;
+            margin-top: 10px;
         }
 
         .container {
-            max-width: 850px;
-            margin: 30px auto;
-            padding: 0 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
         }
 
-        /* Wygląd pojedynczej karty z ofertą */
+        /* --- KARTY OFERT (Styl 3D) --- */
         .offer-card {
             background: #fff;
-            /* Pikselowa ramka */
-            border: 4px solid #000;
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-            padding: 25px;
+            border-radius: 25px; /* Duże zaokrąglenia */
+            /* Miękki, głęboki cień dający efekt 3D */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 35px;
+            padding: 30px;
             position: relative;
-            transition: transform 0.2s;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
         .offer-card:hover {
-            transform: translate(-4px, -4px);
-            box-shadow: 12px 12px 0px rgba(0,0,0,0.5);
+            transform: translateY(-8px); /* Unoszenie karty */
         }
 
-        /* Etykieta "Polecane" w stylu retro */
+        /* Badge "TOP" */
         .badge {
             position: absolute;
-            top: -4px;
-            right: -4px;
-            background-color: #ff0000;
-            color: yellow;
-            padding: 5px 15px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border: 3px solid #000;
-            text-transform: uppercase;
-            transform: rotate(5deg);
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
         }
 
-        /* --- STYLIZACJA NAZW BANKÓW (ZAMIAST OBRAZKÓW) --- */
+        /* Nazwy Banków - Duże, Kolorowe */
         .bank-name {
-            font-size: 2.2rem;
-            font-weight: bold;
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            line-height: 1;
+            letter-spacing: -0.5px;
         }
 
-        /* Kolory konkretnych banków */
-        .bank-pko { color: #003c71; text-shadow: 2px 2px 0px #ccc; }
-        .bank-santander { color: #ec0000; text-shadow: 2px 2px 0px #ccc;}
-        .bank-pekao { color: #d31f32; text-shadow: 2px 2px 0px #ccc;}
-        .bank-velo { color: #00a79d; text-shadow: 2px 2px 0px #ccc;}
-        .bank-bnp { color: #108a00; text-shadow: 2px 2px 0px #ccc;}
+        .bank-pko { color: #003c71; }
+        .bank-santander { color: #ec0000; }
+        .bank-pekao { color: #d31f32; }
+        .bank-velo { color: #00a79d; }
+        .bank-bnp { color: #108a00; }
 
         .bonus-amount {
-            color: #000;
-            background-color: #ffff00;
+            color: #333;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: #f0f2f5;
             display: inline-block;
-            padding: 2px 10px;
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            border: 2px solid #000;
+            padding: 5px 15px;
+            border-radius: 12px;
         }
 
+        .bonus-highlight {
+            color: #00c6ff;
+            font-weight: 800;
+        }
+
+        /* Layout w środku karty */
+        .offer-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .offer-layout {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .offer-content { flex: 2; }
+            .offer-actions { flex: 1; min-width: 260px; }
+        }
+
+        /* Lista zalet */
         .features {
             list-style: none;
             padding: 0;
-            margin: 0 0 20px 0;
-            font-size: 1.3rem;
+            margin: 0;
+            font-size: 1.1rem;
+            color: #555;
         }
-
         .features li {
-            margin-bottom: 10px;
-            padding-left: 30px;
-            position: relative;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
         }
-
         .features li::before {
-            content: '►';
-            color: #ff0000;
-            position: absolute;
-            left: 0;
-        }
-
-        /* --- PRZYCISK ROZWIJANIA SZCZEGÓŁÓW --- */
-        .toggle-btn {
-            background: #ddd;
-            border: 3px solid #000;
-            color: #000;
-            width: 100%;
-            padding: 10px;
-            text-align: left;
-            font-family: 'VT323', monospace;
-            font-size: 1.3rem;
-            cursor: pointer;
-            margin-bottom: 15px;
-        }
-        
-        .toggle-btn:hover { background: #ccc; }
-
-        /* Ukryta treść szczegółów */
-        .details-content {
-            display: none; /* Domyślnie ukryte */
-            background: #f9f9f9;
-            border: 3px solid #000;
-            border-top: none;
-            padding: 15px;
-            margin-top: -18px; /* Nasunięcie na przycisk */
-            margin-bottom: 20px;
+            content: '●';
+            color: #00c6ff;
             font-size: 1.2rem;
+            margin-right: 10px;
         }
 
-        .details-content ol {
-            padding-left: 25px;
+        /* --- PRZYCISKI (Styl "Candy") --- */
+        .toggle-btn {
+            background: #eef2f3;
+            color: #555;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 15px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: background 0.2s;
+            text-align: center;
         }
-        .details-content li {
-            margin-bottom: 5px;
-        }
+        .toggle-btn:hover { background: #dfe4ea; }
 
-        /* GŁÓWNY PRZYCISK (CTA) */
         .cta-button {
             display: block;
             width: 100%;
-            padding: 15px;
-            background-color: #0000ff;
-            color: yellow;
+            padding: 16px;
+            /* Gradientowy przycisk 3D */
+            background: linear-gradient(45deg, #0072ff, #00c6ff);
+            color: white;
             text-align: center;
             text-decoration: none;
-            font-weight: bold;
-            border: 4px solid #000;
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            transition: background-color 0.3s, transform 0.1s;
-            box-sizing: border-box; /* Ważne przy obramowaniu */
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+            transition: transform 0.1s, box-shadow 0.2s;
+            box-sizing: border-box;
         }
-
         .cta-button:hover {
-            background-color: #ff0000;
-            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 114, 255, 0.5);
         }
-        .cta-button:active { transform: translate(2px, 2px); }
+        .cta-button:active {
+            transform: translateY(2px); /* Efekt wciśnięcia */
+            box-shadow: 0 2px 5px rgba(0, 114, 255, 0.4);
+        }
 
+        /* --- ROZWIJANE SZCZEGÓŁY --- */
+        .details-content {
+            display: none;
+            background: #f8fbff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            border: 1px solid #e1e8ed;
+        }
+        .details-content strong { color: #333; }
+        .details-content ul, .details-content ol { padding-left: 20px; margin: 10px 0; }
+        .details-content li { margin-bottom: 5px; }
 
         footer {
             text-align: center;
-            padding: 30px;
-            font-size: 1rem;
             color: #fff;
-            background: #111;
-            border-top: 4px solid #fff;
-            margin-top: 40px;
-        }
-
-        /* Responsywność */
-        @media (min-width: 700px) {
-            .offer-flex-container {
-                display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-            }
-            .offer-content-left {
-                flex: 2;
-                padding-right: 30px;
-            }
-            .offer-actions-right {
-                flex: 1;
-                min-width: 250px;
-            }
+            font-size: 0.9rem;
+            opacity: 0.8;
+            padding-top: 20px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Łowca Promocji Bankowych</h1>
-        <p>Odbierz gotówkę za darmowe konta. Oferty 2025.</p>
+        <h1>Łowca Promocji</h1>
+        <p>Najlepsze bonusy bankowe w jednym miejscu</p>
     </header>
 
     <div class="container">
 
         <div class="offer-card">
-            <div class="badge">TOP OFERTA</div>
-            <div class="offer-flex-container">
-                <div class="offer-content-left">
+            <div class="badge">Do 600 zł</div>
+            <div class="offer-layout">
+                <div class="offer-content">
                     <div class="bank-name bank-pko">PKO Bank Polski</div>
-                    <div class="bonus-amount">Zyskaj do 400 zł premii</div>
+                    <div class="bonus-amount">Zyskaj łącznie do <span class="bonus-highlight">600 zł</span></div>
                     <ul class="features">
-                        <li>Darmowe prowadzenie konta osobistego</li>
-                        <li>Szeroka sieć oddziałów i bankomatów</li>
-                        <li>Nowoczesna aplikacja IKO</li>
+                        <li>Konto za 0 zł (przy aktywności)</li>
+                        <li>Nagrody za płatności telefonem</li>
+                        <li>Bonus za konto walutowe</li>
                     </ul>
                 </div>
-                
-                <div class="offer-actions-right">
-                    <button class="toggle-btn">▼ Rozwiń warunki i szczegóły</button>
+                <div class="offer-actions">
+                    <button class="toggle-btn">▼ Zobacz warunki (600 zł)</button>
                     <div class="details-content">
-                        <p><strong>Co trzeba zrobić (przykłady):</strong></p>
+                        <strong>Jak zgarnąć 600 zł?</strong>
                         <ol>
-                            <li>Załóż konto z kartą przez link poniżej.</li>
-                            <li>Wyraź zgody marketingowe.</li>
-                            <li>Wykonaj min. 3 płatności kartą w pierwszym miesiącu.</li>
-                            <li>(Sprawdź dokładny regulamin na stronie banku po kliknięciu).</li>
+                            <li>Do 31.12.2025 otwórz konto z kartą i kodem: <strong>ZYSK</strong>.</li>
+                            <li><strong>Nagroda I (100 zł):</strong> Zapłać min. 3 razy telefonem (Google/Apple Pay) w 1. miesiącu.</li>
+                            <li><strong>Nagroda II (100 zł):</strong> Wykonaj min. 6 płatności telefonem w 2. i 3. miesiącu.</li>
+                            <li><strong>Nagroda III (do 300 zł):</strong> Zwrot 5% za płatności kartą przez 6 miesięcy (max 50 zł/mies).</li>
+                            <li><strong>Nagroda IV (100 zł):</strong> Za konto walutowe i 2 wymiany walut.</li>
                         </ol>
                     </div>
-
-                    <a href="https://tmlead.pl/redirect/838640_3055" class="cta-button" target="_blank" rel="nofollow">Odbierz 400 zł »</a>
+                    <a href="https://tmlead.pl/redirect/838640_3055" class="cta-button" target="_blank" rel="nofollow">Załóż konto w PKO »</a>
                 </div>
             </div>
         </div>
 
-
         <div class="offer-card">
-            <div class="offer-flex-container">
-                <div class="offer-content-left">
+            <div class="badge">MEGA HIT</div>
+            <div class="offer-layout">
+                <div class="offer-content">
                     <div class="bank-name bank-santander">Santander Bank Polska</div>
-                    <div class="bonus-amount">Nawet 500 zł w bonusach</div>
+                    <div class="bonus-amount">Do <span class="bonus-highlight">700 zł</span> gotówki lub <span class="bonus-highlight">1200 zł</span> zwrotu</div>
                     <ul class="features">
-                        <li>Konto "Jakie Chcę" z prostymi warunkami</li>
-                        <li>Wysoki Moneyback za zakupy</li>
-                        <li>Bonusy gotówkowe dla nowych klientów</li>
+                        <li>Wybierasz: Gotówka na start czy zwroty za rachunki?</li>
+                        <li>Dodatkowe 300 zł premii ekstra</li>
+                        <li>6% na lokacie dla chętnych</li>
                     </ul>
                 </div>
-
-                <div class="offer-actions-right">
-                    <button class="toggle-btn">▼ Rozwiń warunki i szczegóły</button>
+                <div class="offer-actions">
+                    <button class="toggle-btn">▼ Zobacz warunki (700/1200 zł)</button>
                     <div class="details-content">
-                        <p><strong>Skrócone warunki:</strong></p>
-                        <ol>
-                            <li>Złóż wniosek o konto z linku.</li>
-                            <li>Zapewnij wpływ min. 1000 zł w kolejnym miesiącu.</li>
-                            <li>Wykonaj płatności BLIK na łączną kwotę 100 zł.</li>
-                        </ol>
+                        <strong>Opcja 1: Do 700 zł w gotówce</strong>
+                        <ul>
+                            <li><strong>200 zł:</strong> (Miesiąc 1 i 2) Wpływ 1000 zł + 5 płatności kartą/BLIK (min. 100 zł łącznię).</li>
+                            <li><strong>200 zł:</strong> (Miesiąc 3 i 4) To samo: wpływ 1000 zł + 5 płatności (min. 100 zł).</li>
+                            <li><strong>300 zł:</strong> Ekstra bonus za spełnienie wszystkich powyższych.</li>
+                        </ul>
+                        <hr style="border:0; border-top:1px dashed #ccc; margin:10px 0;">
+                        <strong>Opcja 2: Do 1200 zł zwrotu</strong>
+                        <ul>
+                            <li>5% zwrotu za zakupy w internecie kartą/BLIK (max 100 zł miesięcznie przez rok).</li>
+                        </ul>
                     </div>
-                    <a href="https://tmlead.pl/redirect/838640_2425" class="cta-button" target="_blank" rel="nofollow">Sprawdź ofertę »</a>
+                    <a href="https://tmlead.pl/redirect/838640_2425" class="cta-button" target="_blank" rel="nofollow">Wybierz Santander »</a>
                 </div>
             </div>
         </div>
 
-
         <div class="offer-card">
-             <div class="offer-flex-container">
-                <div class="offer-content-left">
+            <div class="offer-layout">
+                <div class="offer-content">
                     <div class="bank-name bank-pekao">Bank Pekao SA (Żubr)</div>
-                    <div class="bonus-amount">200 zł gotówki na start</div>
+                    <div class="bonus-amount">Do <span class="bonus-highlight">400 zł</span> po prostu korzystając</div>
                     <ul class="features">
-                        <li>Darmowe konto i karta dla młodych</li>
-                        <li>Premia za spełnienie prostych warunków</li>
+                        <li>Konto Przekorzystne za 0 zł</li>
                         <li>Świetna aplikacja PeoPay</li>
+                        <li>Proste warunki aktywności</li>
                     </ul>
                 </div>
-                <div class="offer-actions-right">
-                    <button class="toggle-btn">▼ Rozwiń warunki i szczegóły</button>
+                <div class="offer-actions">
+                    <button class="toggle-btn">▼ Zobacz warunki (400 zł)</button>
                     <div class="details-content">
-                        <p><strong>Jak odebrać premię:</strong></p>
+                        <strong>Jak zdobyć nagrody?</strong>
                         <ol>
-                            <li>Załóż Konto Przekorzystne na selfie.</li>
-                            <li>Aktywnie korzystaj z karty w pierwszym miesiącu.</li>
+                            <li>Załóż konto na selfie z kartą i aplikacją. Wyraź zgody marketingowe.</li>
+                            <li>Zapewnij wpływ min. 500 zł.</li>
+                            <li>Wykonaj min. 5 transakcji kartą/BLIKiem.</li>
                         </ol>
                     </div>
                     <a href="https://tmlead.pl/redirect/838640_1134" class="cta-button" target="_blank" rel="nofollow">Odbierz gotówkę »</a>
@@ -312,107 +310,89 @@
             </div>
         </div>
 
-
         <div class="offer-card">
-            <div class="offer-flex-container">
-                <div class="offer-content-left">
-                     <div class="bank-name bank-velo">Velo Bank</div>
-                    <div class="bonus-amount">Wysoki zwrot za zakupy (Moneyback)</div>
+            <div class="offer-layout">
+                <div class="offer-content">
+                    <div class="bank-name bank-bnp">BNP Paribas - Promocja</div>
+                    <div class="bonus-amount">Konto z premią na start</div>
                     <ul class="features">
-                        <li>Konto za 0 zł i prosty Moneyback</li>
-                        <li>Świetne lokaty i konta oszczędnościowe</li>
-                        <li>Nowoczesne rozwiązania bankowości mobilnej</li>
+                        <li>Konto otwierane przez internet (GOmobile)</li>
+                        <li>Proste zasady aktywności</li>
                     </ul>
-                 </div>
-                 <div class="offer-actions-right">
-                    <button class="toggle-btn">▼ Rozwiń warunki i szczegóły</button>
+                </div>
+                <div class="offer-actions">
+                    <button class="toggle-btn">▼ Zobacz warunki</button>
                     <div class="details-content">
-                        <p><strong>Szczegóły VeloKonta:</strong></p>
-                        <ol>
-                            <li>Kliknij przycisk i sprawdź aktualny procent zwrotu na stronie banku.</li>
-                        </ol>
+                        <strong>Harmonogram działań:</strong>
+                        <ul>
+                            <li>Do 19.12.2025: Podpisz umowę i <strong>Aktywuj Kartę</strong>.</li>
+                            <li>Do 11.01.2026: Zapewnij wpływ min. 1000 zł ORAZ wykonaj min. 4 transakcje kartą na sumę min. 300 zł.</li>
+                        </ul>
                     </div>
-                    <a href="https://tmlead.pl/redirect/838640_2654" class="cta-button" target="_blank" rel="nofollow">Załóż VeloKonto »</a>
+                    <a href="https://tmlead.pl/redirect/838640_3064" class="cta-button" target="_blank" rel="nofollow">Przejdź do BNP »</a>
                 </div>
             </div>
         </div>
 
-
-        <div class="offer-card">
-             <div class="offer-flex-container">
-                <div class="offer-content-left">
-                    <div class="bank-name bank-bnp">BNP Paribas - Promocja 1</div>
-                    <div class="bonus-amount">Sprawdź aktualną premię</div>
+        <div class="offer-card" style="opacity: 0.9;">
+            <div class="offer-layout">
+                <div class="offer-content">
+                    <div class="bank-name bank-velo">Velo Bank</div>
+                    <div class="bonus-amount">VeloKonto i wysoki Moneyback</div>
                     <ul class="features">
-                        <li>Konto osobiste z prostymi warunkami</li>
-                        <li>Możliwość założenia konta bez wychodzenia z domu</li>
+                        <li>Zwroty za zakupy (VeloChwile)</li>
+                        <li>Atrakcyjne oprocentowanie oszczędności</li>
                     </ul>
-                 </div>
-                 <div class="offer-actions-right">
-                    <button class="toggle-btn">▼ Rozwiń warunki i szczegóły</button>
+                </div>
+                <div class="offer-actions">
+                    <button class="toggle-btn">▼ Warunki</button>
                     <div class="details-content">
-                        <p><strong>Warunki promocji:</strong></p>
-                        <ol>
-                            <li>Szczegóły dostępne po przejściu na stronę promocji.</li>
-                        </ol>
+                        <p>Szczegółowe warunki aktualnej promocji dostępne bezpośrednio na stronie banku.</p>
                     </div>
-                    <a href="https://tmlead.pl/redirect/838640_3064" class="cta-button" target="_blank" rel="nofollow">Przejdź do banku »</a>
+                    <a href="https://tmlead.pl/redirect/838640_2654" class="cta-button" target="_blank" rel="nofollow">Sprawdź na stronie »</a>
                 </div>
             </div>
         </div>
 
-
-        <div class="offer-card">
-             <div class="offer-flex-container">
-                <div class="offer-content-left">
-                     <div class="bank-name bank-bnp">BNP Paribas - Promocja 2</div>
-                    <div class="bonus-amount">Dodatkowy bonus na start</div>
+        <div class="offer-card" style="opacity: 0.9;">
+            <div class="offer-layout">
+                <div class="offer-content">
+                    <div class="bank-name bank-bnp">BNP Paribas - Opcja 2</div>
+                    <div class="bonus-amount">Druga promocja specjalna</div>
                     <ul class="features">
-                        <li>Sprawdź, czy kwalifikujesz się do tej oferty</li>
-                        <li>Konto osobiste za 0 zł po spełnieniu warunku</li>
+                        <li>Alternatywna oferta dla nowych klientów</li>
                     </ul>
-                 </div>
-                 <div class="offer-actions-right">
-                    <button class="toggle-btn">▼ Rozwiń warunki i szczegóły</button>
+                </div>
+                <div class="offer-actions">
+                    <button class="toggle-btn">▼ Warunki</button>
                     <div class="details-content">
-                        <p><strong>Wymagania:</strong></p>
-                        <ol>
-                            <li>Kliknij przycisk poniżej, aby poznać aktualne zasady.</li>
-                        </ol>
+                        <p>Szczegóły promocji znajdziesz po kliknięciu w przycisk poniżej.</p>
                     </div>
-                    <a href="https://tmlead.pl/redirect/838640_383" class="cta-button" target="_blank" rel="nofollow">Zobacz szczegóły »</a>
+                    <a href="https://tmlead.pl/redirect/838640_383" class="cta-button" target="_blank" rel="nofollow">Sprawdź na stronie »</a>
                 </div>
             </div>
         </div>
-
 
     </div>
 
     <footer>
-        <p>Strona ma charakter informacyjny. Linki są linkami afiliacyjnymi.<br>
-        Przed założeniem konta OBOĄZKOWO zapoznaj się z regulaminem promocji na stronie banku po kliknięciu w link.</p>
+        <p>Strona informacyjna. Linki afiliacyjne. Przed założeniem konta sprawdź regulamin na stronie banku.</p>
     </footer>
 
     <script>
-        // Pobieramy wszystkie przyciski rozwijania
         const buttons = document.querySelectorAll('.toggle-btn');
-
         buttons.forEach(button => {
             button.addEventListener('click', () => {
-                // Znajdź element z treścią, który jest zaraz po przycisku
                 const content = button.nextElementSibling;
-                
-                // Przełącz widoczność
                 if (content.style.display === "block") {
                     content.style.display = "none";
-                    button.textContent = "▼ Rozwiń warunki i szczegóły";
+                    button.textContent = button.textContent.replace('▲ Zwiń', '▼ Zobacz');
                 } else {
                     content.style.display = "block";
-                    button.textContent = "▲ Zwiń warunki";
+                    button.textContent = button.textContent.replace('▼ Zobacz', '▲ Zwiń');
                 }
             });
         });
     </script>
-
 </body>
 </html>
