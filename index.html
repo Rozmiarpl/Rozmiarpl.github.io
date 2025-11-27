@@ -11,13 +11,35 @@
             font-family: 'Fredoka', sans-serif;
             margin: 0;
             padding: 0;
-            /* Główny gradient */
             background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
             color: #444;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative; 
             z-index: 1;
+        }
+
+        /* ---------------------------------------------------- */
+        /* --- TŁO GŁÓWNE Z DELIKATNĄ ANIMACJĄ --- */
+        /* ---------------------------------------------------- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            background-size: 300px 300px;
+            animation: backgroundPan 30s linear infinite;
+            z-index: -1; /* Pod wszystkim */
+        }
+        
+        @keyframes backgroundPan {
+            0% { background-position: 0% 0%, 100% 100%; }
+            100% { background-position: 100% 100%, 0% 0%; }
         }
 
         /* ---------------------------------------------------- */
@@ -29,11 +51,11 @@
             background: rgba(255, 255, 255, 0.5); 
             backdrop-filter: blur(8px);
             text-align: center;
-            padding: 40px 20px 80px 20px; /* Większy padding na dole dla fali */
+            padding: 40px 20px 80px 20px; /* Większy padding na dole dla efektu farby */
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 0; /* Usunięcie marginesu na rzecz fali */
+            margin-bottom: 0; 
             animation: slideDown 0.8s ease-out;
             z-index: 10;
         }
@@ -72,39 +94,42 @@
         .animated-header .shapes li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; background: rgba(100, 100, 255, 0.7); }
         .animated-header .shapes li:nth-child(5){ left: 65%; width: 25px; height: 25px; animation-delay: 0s; animation-duration: 9s; background: rgba(255, 255, 255, 0.8); }
         .animated-header .shapes li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; background: rgba(255, 100, 255, 0.7); }
-
-        /* ---------------------------------------------------- */
-        /* --- NOWA ANIMACJA: SPŁYWAJĄCA FARBA/WODA (Wave Divider) --- */
-        /* ---------------------------------------------------- */
-        .wave-divider {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px; /* Wysokość elementu animacji */
-            overflow: hidden;
-            z-index: 12; /* Musi być wyżej niż nagłówek */
-        }
-
-        .wave-divider svg {
-            display: block;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            fill: white; /* Kolor "farby" - biały, pasujący do tła kart */
-        }
         
-        .wave-divider .wave-path {
-            /* Dodajemy małą animację ruchu fali */
-            animation: waveMotion 15s linear infinite; 
+        @keyframes animate {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
         }
 
-        @keyframes waveMotion {
-            0% { transform: translate(0, 0); }
-            50% { transform: translate(30px, 0); }
-            100% { transform: translate(0, 0); }
+        /* ---------------------------------------------------- */
+        /* --- NOWA ANIMACJA: CIEKNĄCA FARBA (Droplet Effect) --- */
+        /* ---------------------------------------------------- */
+        .droplet-effect {
+            position: absolute;
+            bottom: -50px; /* Zaczyna się nieco pod nagłówkiem */
+            left: 0;
+            width: 100%;
+            height: 100px; /* Wysokość strefy, gdzie "cieknie" */
+            overflow: hidden;
+            z-index: 11; /* Nad tłem, ale pod kartami */
+        }
+        .droplet-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -10%;
+            width: 120%;
+            height: 120px; /* Wysokość samej cieknącej "fali" */
+            background: #ffffff; /* Kolor "farby" - biały */
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0; /* Kształt "kapiącej farby" */
+            transform-origin: bottom center;
+            animation: dropletSpread 8s ease-in-out infinite alternate; /* Animacja "rozlewania się" */
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        }
+
+        @keyframes dropletSpread {
+            0% { transform: scaleX(1) translateY(0); }
+            50% { transform: scaleX(1.05) translateY(-5px); } /* Lekkie "falowanie" */
+            100% { transform: scaleX(0.95) translateY(0); }
         }
 
         /* ---------------------------------------------------- */
@@ -129,7 +154,7 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px 40px 20px; /* Dodatkowy padding na górze, żeby zrównoważyć falę */
+            padding: 40px 20px 40px 20px; /* Dodatkowy padding na górze */
             position: relative; 
             z-index: 5;
         }
@@ -175,12 +200,39 @@
         .features li { margin-bottom: 8px; display: flex; align-items: center; }
         .features li::before { content: '⭐'; font-size: 1rem; margin-right: 10px; } 
 
+        /* POPRAWIONY PRZYCISK TOGGLE-BTN */
+        .toggle-btn {
+            background: #eef2f3; 
+            color: #555; 
+            border: none; 
+            width: 100%; 
+            padding: 12px;
+            border-radius: 15px; 
+            font-family: 'Fredoka', sans-serif; 
+            font-weight: 600; 
+            font-size: 1rem;
+            cursor: pointer; 
+            margin-bottom: 12px; 
+            transition: background 0.2s; 
+            text-align: center;
+            box-sizing: border-box; /* Ważne, żeby padding nie rozpychał */
+            display: block; /* Zapewnia, że jest blokiem */
+        }
+        .toggle-btn:hover { background: #dfe4ea; }
+        /* POPRAWIONY PRZYCISK TOGGLE-BTN - KONIEC */
+
         .cta-button {
             display: block; width: 100%; padding: 16px;
             background: linear-gradient(45deg, #0072ff, #00c6ff); color: white;
             text-align: center; text-decoration: none; font-weight: 700; font-size: 1.2rem;
             border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
             transition: transform 0.1s, box-shadow 0.2s; box-sizing: border-box;
+        }
+
+        .details-content {
+            display: none; background: #f8fbff; border-radius: 15px; padding: 20px;
+            margin-top: 10px; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6;
+            border: 1px solid #e1e8ed;
         }
 
         /* --- SEKCJA KONTAKTOWA (INSTAGRAM) --- */
@@ -205,7 +257,7 @@
             position: relative; z-index: 5;
         }
         
-        footer #counter-container { margin-top: 10px; font-weight: bold; display: block; }
+        /* USUNIĘTO KOD LICZNIKA */
 
         /* --- KLUCZOWE KLATKI ANIMACJI (Keyframes) --- */
         @keyframes fadeInUp {
@@ -222,11 +274,6 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
-        }
-        
-        @keyframes animate {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
-            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
         }
     </style>
 </head>
@@ -245,11 +292,7 @@
             <li></li>
         </ul>
 
-        <div class="wave-divider">
-            <svg viewBox="0 0 1440 100" preserveAspectRatio="none" shape-rendering="auto">
-                <path d="M0,60 C240,100 360,30 600,60 C840,90 1080,100 1440,60 L1440,100 L0,100 Z" class="wave-path"></path>
-            </svg>
-        </div>
+        <div class="droplet-effect"></div>
     </header>
 
     <div class="container">
@@ -341,6 +384,69 @@
             </div>
         </div>
 
+        <div class="offer-card">
+            <div class="offer-layout">
+                <div class="offer-content">
+                    <div class="bank-name bank-bnp">BNP Paribas - Promocja</div>
+                    <div class="bonus-amount">Konto z premią na start 🚀</div>
+                    <ul class="features">
+                        <li>Konto otwierane przez internet (GOmobile)</li>
+                        <li>Proste zasady aktywności</li>
+                    </ul>
+                </div>
+                <div class="offer-actions">
+                    <button class="toggle-btn">▼ Zobacz warunki</button>
+                    <div class="details-content">
+                        <strong>Harmonogram działań:</strong>
+                        <ul>
+                            <li>Do 19.12.2025: Podpisz umowę i <strong>Aktywuj Kartę</strong>.</li>
+                            <li>Do 11.01.2026: Zapewnij wpływ min. 1000 zł ORAZ wykonaj min. 4 transakcje kartą na sumę min. 300 zł.</li>
+                        </ul>
+                    </div>
+                    <a href="https://tmlead.pl/redirect/838640_3064" class="cta-button" target="_blank" rel="nofollow">Przejdź do BNP »</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="offer-card" style="opacity: 0.9;">
+            <div class="offer-layout">
+                <div class="offer-content">
+                    <div class="bank-name bank-velo">Velo Bank</div>
+                    <div class="bonus-amount">VeloKonto i wysoki Moneyback ✨</div>
+                    <ul class="features">
+                        <li>Zwroty za zakupy (VeloChwile)</li>
+                        <li>Atrakcyjne oprocentowanie oszczędności</li>
+                    </ul>
+                </div>
+                <div class="offer-actions">
+                    <button class="toggle-btn">▼ Warunki</button>
+                    <div class="details-content">
+                        <p>Szczegółowe warunki aktualnej promocji dostępne bezpośrednio na stronie banku.</p>
+                    </div>
+                    <a href="https://tmlead.pl/redirect/838640_2654" class="cta-button" target="_blank" rel="nofollow">Sprawdź na stronie »</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="offer-card" style="opacity: 0.9;">
+            <div class="offer-layout">
+                <div class="offer-content">
+                    <div class="bank-name bank-bnp">BNP Paribas - Opcja 2</div>
+                    <div class="bonus-amount">Druga promocja specjalna 🥳</div>
+                    <ul class="features">
+                        <li>Alternatywna oferta dla nowych klientów</li>
+                    </ul>
+                </div>
+                <div class="offer-actions">
+                    <button class="toggle-btn">▼ Warunki</button>
+                    <div class="details-content">
+                        <p>Szczegóły promocji znajdziesz po kliknięciu w przycisk poniżej.</p>
+                    </div>
+                    <a href="https://tmlead.pl/redirect/838640_383" class="cta-button" target="_blank" rel="nofollow">Sprawdź na stronie »</a>
+                </div>
+            </div>
+        </div>
+
         <div class="contact-box">
             <h3>Masz pytania lub problem? ❓</h3>
             <p>Napisz do mnie śmiało na Instagramie, chętnie pomogę! 👇</p>
@@ -351,12 +457,6 @@
 
     <footer>
         <p>Strona informacyjna. Linki afiliacyjne. Przed założeniem konta sprawdź regulamin na stronie banku.</p>
-        
-        <div id="counter-container">
-            <a href='http://www.counterliczniki.com'>licznik odwiedzin Joomla</a> 
-            <script type='text/javascript' src='https://www.counterliczniki.com/auth.php?id=0ad9b392e5057e0063cc677c59708c620c99821e'></script>
-            <script type="text/javascript" src="https://www.counterliczniki.com/pl/home/counter/1448771/t/10"></script>
-        </div>
     </footer>
 
     <script>
