@@ -11,20 +11,22 @@
             font-family: 'Fredoka', sans-serif;
             margin: 0;
             padding: 0;
-            /* Tło: Miękki gradient jak niebo w bajce */
             background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
             color: #444;
             min-height: 100vh;
+            overflow-x: hidden; /* Zapobiega paskom przewijania przy animacjach */
         }
 
         header {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             text-align: center;
             padding: 40px 20px;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin-bottom: 40px;
+            /* Animacja nagłówka */
+            animation: slideDown 0.8s ease-out;
         }
 
         header h1 {
@@ -46,27 +48,38 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px 60px 20px;
+            padding: 0 20px 40px 20px;
         }
 
-        /* --- KARTY OFERT (Styl 3D) --- */
+        /* --- KARTY OFERT (Styl 3D + Animacja wjazdu) --- */
         .offer-card {
             background: #fff;
-            border-radius: 25px; /* Duże zaokrąglenia */
-            /* Miękki, głęboki cień dający efekt 3D */
+            border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
             margin-bottom: 35px;
             padding: 30px;
             position: relative;
             transition: transform 0.3s ease;
             border: 1px solid rgba(255,255,255,0.5);
+            
+            /* Ustawienia animacji wjazdu */
+            opacity: 0; /* Domyślnie niewidoczne */
+            animation: fadeInUp 0.8s ease-out forwards;
         }
+
+        /* Opóźnienia dla kolejnych kart (efekt kaskady) */
+        .offer-card:nth-child(1) { animation-delay: 0.2s; }
+        .offer-card:nth-child(2) { animation-delay: 0.4s; }
+        .offer-card:nth-child(3) { animation-delay: 0.6s; }
+        .offer-card:nth-child(4) { animation-delay: 0.8s; }
+        .offer-card:nth-child(5) { animation-delay: 1.0s; }
+        .offer-card:nth-child(6) { animation-delay: 1.2s; }
 
         .offer-card:hover {
-            transform: translateY(-8px); /* Unoszenie karty */
+            transform: translateY(-8px);
         }
 
-        /* Badge "TOP" */
+        /* Badge "TOP" + Animacja Pulsowania */
         .badge {
             position: absolute;
             top: 20px;
@@ -78,16 +91,16 @@
             font-weight: 700;
             font-size: 0.9rem;
             box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+            animation: pulse 2s infinite; /* Nieskończone pulsowanie */
         }
 
-        /* Nazwy Banków - Duże, Kolorowe */
+        /* Nazwy Banków */
         .bank-name {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 5px;
             letter-spacing: -0.5px;
         }
-
         .bank-pko { color: #003c71; }
         .bank-santander { color: #ec0000; }
         .bank-pekao { color: #d31f32; }
@@ -104,11 +117,7 @@
             padding: 5px 15px;
             border-radius: 12px;
         }
-
-        .bonus-highlight {
-            color: #00c6ff;
-            font-weight: 800;
-        }
+        .bonus-highlight { color: #00c6ff; font-weight: 800; }
 
         /* Layout w środku karty */
         .offer-layout {
@@ -116,7 +125,6 @@
             flex-direction: column;
             gap: 20px;
         }
-
         @media (min-width: 768px) {
             .offer-layout {
                 flex-direction: row;
@@ -127,26 +135,11 @@
         }
 
         /* Lista zalet */
-        .features {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-size: 1.1rem;
-            color: #555;
-        }
-        .features li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
-        .features li::before {
-            content: '●';
-            color: #00c6ff;
-            font-size: 1.2rem;
-            margin-right: 10px;
-        }
+        .features { list-style: none; padding: 0; margin: 0; font-size: 1.1rem; color: #555; }
+        .features li { margin-bottom: 8px; display: flex; align-items: center; }
+        .features li::before { content: '●'; color: #00c6ff; font-size: 1.2rem; margin-right: 10px; }
 
-        /* --- PRZYCISKI (Styl "Candy") --- */
+        /* --- PRZYCISKI --- */
         .toggle-btn {
             background: #eef2f3;
             color: #555;
@@ -168,7 +161,6 @@
             display: block;
             width: 100%;
             padding: 16px;
-            /* Gradientowy przycisk 3D */
             background: linear-gradient(45deg, #0072ff, #00c6ff);
             color: white;
             text-align: center;
@@ -184,10 +176,7 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 114, 255, 0.5);
         }
-        .cta-button:active {
-            transform: translateY(2px); /* Efekt wciśnięcia */
-            box-shadow: 0 2px 5px rgba(0, 114, 255, 0.4);
-        }
+        .cta-button:active { transform: translateY(2px); box-shadow: 0 2px 5px rgba(0, 114, 255, 0.4); }
 
         /* --- ROZWIJANE SZCZEGÓŁY --- */
         .details-content {
@@ -201,16 +190,65 @@
             line-height: 1.6;
             border: 1px solid #e1e8ed;
         }
-        .details-content strong { color: #333; }
-        .details-content ul, .details-content ol { padding-left: 20px; margin: 10px 0; }
-        .details-content li { margin-bottom: 5px; }
+
+        /* --- SEKCJA KONTAKTOWA (INSTAGRAM) --- */
+        .contact-box {
+            background: #fff;
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out forwards;
+            animation-delay: 1.4s;
+            opacity: 0;
+        }
+        .contact-box h3 { margin-top: 0; color: #333; }
+        
+        .insta-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4);
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+        .insta-btn:hover { transform: scale(1.05); }
 
         footer {
             text-align: center;
             color: #fff;
             font-size: 0.9rem;
             opacity: 0.8;
-            padding-top: 20px;
+            padding: 30px 20px;
+        }
+
+        /* --- KLUCZOWE KLATKI ANIMACJI (Keyframes) --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
@@ -371,6 +409,12 @@
                     <a href="https://tmlead.pl/redirect/838640_383" class="cta-button" target="_blank" rel="nofollow">Sprawdź na stronie »</a>
                 </div>
             </div>
+        </div>
+
+        <div class="contact-box">
+            <h3>Masz pytania lub problem?</h3>
+            <p>Napisz do mnie śmiało na Instagramie, chętnie pomogę!</p>
+            <a href="https://www.instagram.com/rozmiibro/" target="_blank" class="insta-btn">📸 Instagram @rozmiibro</a>
         </div>
 
     </div>
