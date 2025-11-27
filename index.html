@@ -14,20 +14,69 @@
             background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
             color: #444;
             min-height: 100vh;
-            overflow-x: hidden; /* Zapobiega paskom przewijania przy animacjach */
+            overflow-x: hidden;
         }
 
-        header {
-            background: rgba(255, 255, 255, 0.95);
+        /* ---------------------------------------------------- */
+        /* --- NOWA SEKCJA CSS: TŁO NAGŁÓWKA (Ruchome Kształty) --- */
+        /* ---------------------------------------------------- */
+        .animated-header {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.5); /* Lekka przezroczystość */
+            backdrop-filter: blur(8px); /* Efekt rozmycia (Glassmorphism) */
             text-align: center;
             padding: 40px 20px;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin-bottom: 40px;
-            /* Animacja nagłówka */
             animation: slideDown 0.8s ease-out;
+            z-index: 10;
         }
+
+        .animated-header h1, .animated-header p {
+            position: relative;
+            z-index: 15; /* Tekst musi być nad kształtami */
+        }
+        
+        .shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .shapes li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+            border-radius: 50%;
+        }
+
+        /* Ustawienie różnych rozmiarów i animacji dla efektu chaosu */
+        .shapes li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .shapes li:nth-child(2){ left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .shapes li:nth-child(3){ left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .shapes li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; background: rgba(255, 255, 255, 0.4); }
+        .shapes li:nth-child(5){ left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+        .shapes li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; background: rgba(255, 255, 255, 0.3); }
+
+        @keyframes animate {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+        }
+        /* ---------------------------------------------------- */
+        /* --- KONIEC NOWEJ SEKCJI CSS --- */
+        /* ---------------------------------------------------- */
+
 
         header h1 {
             margin: 0;
@@ -49,6 +98,7 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 0 20px 40px 20px;
+            z-index: 20;
         }
 
         /* --- KARTY OFERT (Styl 3D + Animacja wjazdu) --- */
@@ -91,16 +141,11 @@
             font-weight: 700;
             font-size: 0.9rem;
             box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
-            animation: pulse 2s infinite; /* Nieskończone pulsowanie */
+            animation: pulse 2s infinite;
         }
 
         /* Nazwy Banków */
-        .bank-name {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            letter-spacing: -0.5px;
-        }
+        .bank-name { font-size: 2rem; font-weight: 700; margin-bottom: 5px; letter-spacing: -0.5px; }
         .bank-pko { color: #003c71; }
         .bank-santander { color: #ec0000; }
         .bank-pekao { color: #d31f32; }
@@ -108,28 +153,15 @@
         .bank-bnp { color: #108a00; }
 
         .bonus-amount {
-            color: #333;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            background: #f0f2f5;
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 12px;
+            color: #333; font-size: 1.4rem; font-weight: 600; margin-bottom: 20px;
+            background: #f0f2f5; display: inline-block; padding: 5px 15px; border-radius: 12px;
         }
         .bonus-highlight { color: #00c6ff; font-weight: 800; }
 
         /* Layout w środku karty */
-        .offer-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+        .offer-layout { display: flex; flex-direction: column; gap: 20px; }
         @media (min-width: 768px) {
-            .offer-layout {
-                flex-direction: row;
-                align-items: flex-start;
-            }
+            .offer-layout { flex-direction: row; align-items: flex-start; }
             .offer-content { flex: 2; }
             .offer-actions { flex: 1; min-width: 260px; }
         }
@@ -141,103 +173,54 @@
 
         /* --- PRZYCISKI --- */
         .toggle-btn {
-            background: #eef2f3;
-            color: #555;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 15px;
-            font-family: 'Fredoka', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-bottom: 12px;
-            transition: background 0.2s;
-            text-align: center;
+            background: #eef2f3; color: #555; border: none; width: 100%; padding: 12px;
+            border-radius: 15px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 1rem;
+            cursor: pointer; margin-bottom: 12px; transition: background 0.2s; text-align: center;
         }
         .toggle-btn:hover { background: #dfe4ea; }
 
         .cta-button {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(45deg, #0072ff, #00c6ff);
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
-            transition: transform 0.1s, box-shadow 0.2s;
-            box-sizing: border-box;
+            display: block; width: 100%; padding: 16px;
+            background: linear-gradient(45deg, #0072ff, #00c6ff); color: white;
+            text-align: center; text-decoration: none; font-weight: 700; font-size: 1.2rem;
+            border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+            transition: transform 0.1s, box-shadow 0.2s; box-sizing: border-box;
         }
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 114, 255, 0.5);
-        }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 114, 255, 0.5); }
         .cta-button:active { transform: translateY(2px); box-shadow: 0 2px 5px rgba(0, 114, 255, 0.4); }
 
         /* --- ROZWIJANE SZCZEGÓŁY --- */
         .details-content {
-            display: none;
-            background: #f8fbff;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            display: none; background: #f8fbff; border-radius: 15px; padding: 20px;
+            margin-top: 10px; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6;
             border: 1px solid #e1e8ed;
         }
 
         /* --- SEKCJA KONTAKTOWA (INSTAGRAM) --- */
         .contact-box {
-            background: #fff;
-            border-radius: 25px;
-            padding: 30px;
-            text-align: center;
-            margin-top: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            animation: fadeInUp 1s ease-out forwards;
-            animation-delay: 1.4s;
-            opacity: 0;
+            background: #fff; border-radius: 25px; padding: 30px; text-align: center;
+            margin-top: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out forwards; animation-delay: 1.4s; opacity: 0;
         }
         .contact-box h3 { margin-top: 0; color: #333; }
         
         .insta-btn {
             display: inline-block;
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4);
-            transition: transform 0.2s;
-            margin-top: 10px;
+            color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none;
+            font-weight: bold; font-size: 1.2rem; box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4);
+            transition: transform 0.2s; margin-top: 10px;
         }
         .insta-btn:hover { transform: scale(1.05); }
 
         footer {
-            text-align: center;
-            color: #fff;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            padding: 30px 20px;
+            text-align: center; color: #fff; font-size: 0.9rem; opacity: 0.8; padding: 30px 20px;
         }
 
         /* --- KLUCZOWE KLATKI ANIMACJI (Keyframes) --- */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideDown {
@@ -254,11 +237,19 @@
 </head>
 <body>
 
-    <header>
-        <h1>Łowca Promocji</h1>
-        <p>Najlepsze bonusy bankowe w jednym miejscu</p>
+    <header class="animated-header">
+        <h1>Łowca Promocji Bankowych</h1>
+        <p>Najlepsze bonusy na start czekają na Ciebie!</p>
+        
+        <ul class="shapes">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
     </header>
-
     <div class="container">
 
         <div class="offer-card">
