@@ -11,29 +11,50 @@
             font-family: 'Fredoka', sans-serif;
             margin: 0;
             padding: 0;
-            /* Główny gradient zostaje */
+            /* Główny gradient */
             background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
             color: #444;
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative; /* Ważne, aby shapes mogły się po nim pozycjonować */
-            z-index: 1; /* Kontener dla shapes */
+            position: relative; 
+            z-index: 1;
         }
 
         /* ---------------------------------------------------- */
-        /* --- NOWA SEKCJA CSS: TŁO CAŁEJ STRONY (Ruchome Kolorowe Kształty) --- */
+        /* --- NAGŁÓWEK (Glassmorphism + Animowane Kształty W ŚRODKU) --- */
         /* ---------------------------------------------------- */
-        .shapes {
+        .animated-header {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.5); 
+            backdrop-filter: blur(8px);
+            text-align: center;
+            padding: 40px 20px 80px 20px; /* Większy padding na dole dla fali */
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 0; /* Usunięcie marginesu na rzecz fali */
+            animation: slideDown 0.8s ease-out;
+            z-index: 10;
+        }
+
+        .animated-header h1, .animated-header p {
+            position: relative;
+            z-index: 15;
+        }
+        
+        /* Kształty (ograniczone do nagłówka) */
+        .animated-header .shapes {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%; /* Rozciągnięte na całą wysokość widoku */
+            height: 100%; 
             pointer-events: none;
-            z-index: 0; /* WAŻNE: Kształty pod całą treścią */
+            z-index: 0; 
         }
         
-        .shapes li {
+        .animated-header .shapes li {
             position: absolute;
             display: block;
             list-style: none;
@@ -44,38 +65,51 @@
             border-radius: 50%;
         }
 
-        /* Ustawienie różnych kolorów, rozmiarów i animacji */
-        .shapes li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; background: rgba(255, 255, 100, 0.7); }
-        .shapes li:nth-child(2){ left: 10%; width: 35px; height: 35px; animation-delay: 2s; animation-duration: 12s; background: rgba(100, 255, 100, 0.7); }
-        .shapes li:nth-child(3){ left: 70%; width: 50px; height: 50px; animation-delay: 4s; background: rgba(255, 100, 100, 0.7); }
-        .shapes li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; background: rgba(100, 100, 255, 0.7); }
-        .shapes li:nth-child(5){ left: 65%; width: 25px; height: 25px; animation-delay: 0s; animation-duration: 9s; background: rgba(255, 255, 255, 0.8); }
-        .shapes li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; background: rgba(255, 100, 255, 0.7); }
+        /* Ustawienie różnych kolorów, rozmiarów i animacji dla kształtów */
+        .animated-header .shapes li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; background: rgba(255, 255, 100, 0.7); }
+        .animated-header .shapes li:nth-child(2){ left: 10%; width: 35px; height: 35px; animation-delay: 2s; animation-duration: 12s; background: rgba(100, 255, 100, 0.7); }
+        .animated-header .shapes li:nth-child(3){ left: 70%; width: 50px; height: 50px; animation-delay: 4s; background: rgba(255, 100, 100, 0.7); }
+        .animated-header .shapes li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; background: rgba(100, 100, 255, 0.7); }
+        .animated-header .shapes li:nth-child(5){ left: 65%; width: 25px; height: 25px; animation-delay: 0s; animation-duration: 9s; background: rgba(255, 255, 255, 0.8); }
+        .animated-header .shapes li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; background: rgba(255, 100, 255, 0.7); }
 
-        @keyframes animate {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
-            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
-        }
         /* ---------------------------------------------------- */
-        /* --- KONIEC CSS DLA TŁA CAŁEJ STRONY --- */
+        /* --- NOWA ANIMACJA: SPŁYWAJĄCA FARBA/WODA (Wave Divider) --- */
         /* ---------------------------------------------------- */
-
-
-        .animated-header {
-            position: relative;
+        .wave-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px; /* Wysokość elementu animacji */
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.5); 
-            backdrop-filter: blur(8px);
-            text-align: center;
-            padding: 40px 20px;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-            animation: slideDown 0.8s ease-out;
-            z-index: 10; /* Zapewnia, że nagłówek jest nad shapes */
+            z-index: 12; /* Musi być wyżej niż nagłówek */
         }
 
+        .wave-divider svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            fill: white; /* Kolor "farby" - biały, pasujący do tła kart */
+        }
+        
+        .wave-divider .wave-path {
+            /* Dodajemy małą animację ruchu fali */
+            animation: waveMotion 15s linear infinite; 
+        }
+
+        @keyframes waveMotion {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 0); }
+            100% { transform: translate(0, 0); }
+        }
+
+        /* ---------------------------------------------------- */
+        /* --- DALSZE STYLE --- */
+        /* ---------------------------------------------------- */
         header h1 {
             margin: 0;
             font-size: 3rem;
@@ -95,12 +129,12 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px 40px 20px;
-            position: relative; /* Zapewnia, że treść jest nad shapes */
+            padding: 40px 20px 40px 20px; /* Dodatkowy padding na górze, żeby zrównoważyć falę */
+            position: relative; 
             z-index: 5;
         }
 
-        /* --- KARTY OFERT (Animacje jak poprzednio) --- */
+        /* --- KARTY OFERT --- */
         .offer-card {
             background: #fff; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.05);
             margin-bottom: 35px; padding: 30px; position: relative; transition: transform 0.3s ease;
@@ -123,8 +157,8 @@
             box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4); animation: pulse 2s infinite;
         }
 
-        /* Nazwy Banków */
-        .bank-name { font-size: 2rem; font-weight: 700; margin-bottom: 5px; letter-spacing: -0.5px; }
+        /* Style banków, bonusów, przycisków... */
+        .bank-name { color: #333; font-size: 2rem; font-weight: 700; margin-bottom: 5px; letter-spacing: -0.5px; }
         .bank-pko { color: #003c71; }
         .bank-santander { color: #ec0000; }
         .bank-pekao { color: #d31f32; }
@@ -137,18 +171,9 @@
         }
         .bonus-highlight { color: #00c6ff; font-weight: 800; }
 
-        /* Lista zalet */
         .features { list-style: none; padding: 0; margin: 0; font-size: 1.1rem; color: #555; }
         .features li { margin-bottom: 8px; display: flex; align-items: center; }
         .features li::before { content: '⭐'; font-size: 1rem; margin-right: 10px; } 
-
-        /* --- PRZYCISKI --- */
-        .toggle-btn {
-            background: #eef2f3; color: #555; border: none; width: 100%; padding: 12px;
-            border-radius: 15px; font-family: 'Fredoka', sans-serif; font-weight: 600; font-size: 1rem;
-            cursor: pointer; margin-bottom: 12px; transition: background 0.2s; text-align: center;
-        }
-        .toggle-btn:hover { background: #dfe4ea; }
 
         .cta-button {
             display: block; width: 100%; padding: 16px;
@@ -157,8 +182,6 @@
             border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
             transition: transform 0.1s, box-shadow 0.2s; box-sizing: border-box;
         }
-        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 114, 255, 0.5); }
-        .cta-button:active { transform: translateY(2px); box-shadow: 0 2px 5px rgba(0, 114, 255, 0.4); }
 
         /* --- SEKCJA KONTAKTOWA (INSTAGRAM) --- */
         .contact-box {
@@ -175,7 +198,6 @@
             font-weight: bold; font-size: 1.2rem; box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4);
             transition: transform 0.2s; margin-top: 10px;
         }
-        .insta-btn:hover { transform: scale(1.05); }
 
         /* STOPKA */
         footer {
@@ -201,22 +223,33 @@
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
+        
+        @keyframes animate {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+        }
     </style>
 </head>
 <body>
 
-    <ul class="shapes">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-
     <header class="animated-header">
         <h1>💰 Łowca Promocji Bankowych 🏦</h1>
         <p>🥳 Najlepsze bonusy na start czekają na Ciebie!</p>
+        
+        <ul class="shapes">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+        <div class="wave-divider">
+            <svg viewBox="0 0 1440 100" preserveAspectRatio="none" shape-rendering="auto">
+                <path d="M0,60 C240,100 360,30 600,60 C840,90 1080,100 1440,60 L1440,100 L0,100 Z" class="wave-path"></path>
+            </svg>
+        </div>
     </header>
 
     <div class="container">
@@ -304,69 +337,6 @@
                         </ol>
                     </div>
                     <a href="https://tmlead.pl/redirect/838640_1134" class="cta-button" target="_blank" rel="nofollow">Odbierz gotówkę »</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="offer-card">
-            <div class="offer-layout">
-                <div class="offer-content">
-                    <div class="bank-name bank-bnp">BNP Paribas - Promocja</div>
-                    <div class="bonus-amount">Konto z premią na start 🚀</div>
-                    <ul class="features">
-                        <li>Konto otwierane przez internet (GOmobile)</li>
-                        <li>Proste zasady aktywności</li>
-                    </ul>
-                </div>
-                <div class="offer-actions">
-                    <button class="toggle-btn">▼ Zobacz warunki</button>
-                    <div class="details-content">
-                        <strong>Harmonogram działań:</strong>
-                        <ul>
-                            <li>Do 19.12.2025: Podpisz umowę i <strong>Aktywuj Kartę</strong>.</li>
-                            <li>Do 11.01.2026: Zapewnij wpływ min. 1000 zł ORAZ wykonaj min. 4 transakcje kartą na sumę min. 300 zł.</li>
-                        </ul>
-                    </div>
-                    <a href="https://tmlead.pl/redirect/838640_3064" class="cta-button" target="_blank" rel="nofollow">Przejdź do BNP »</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="offer-card" style="opacity: 0.9;">
-            <div class="offer-layout">
-                <div class="offer-content">
-                    <div class="bank-name bank-velo">Velo Bank</div>
-                    <div class="bonus-amount">VeloKonto i wysoki Moneyback ✨</div>
-                    <ul class="features">
-                        <li>Zwroty za zakupy (VeloChwile)</li>
-                        <li>Atrakcyjne oprocentowanie oszczędności</li>
-                    </ul>
-                </div>
-                <div class="offer-actions">
-                    <button class="toggle-btn">▼ Warunki</button>
-                    <div class="details-content">
-                        <p>Szczegółowe warunki aktualnej promocji dostępne bezpośrednio na stronie banku.</p>
-                    </div>
-                    <a href="https://tmlead.pl/redirect/838640_2654" class="cta-button" target="_blank" rel="nofollow">Sprawdź na stronie »</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="offer-card" style="opacity: 0.9;">
-            <div class="offer-layout">
-                <div class="offer-content">
-                    <div class="bank-name bank-bnp">BNP Paribas - Opcja 2</div>
-                    <div class="bonus-amount">Druga promocja specjalna 🥳</div>
-                    <ul class="features">
-                        <li>Alternatywna oferta dla nowych klientów</li>
-                    </ul>
-                </div>
-                <div class="offer-actions">
-                    <button class="toggle-btn">▼ Warunki</button>
-                    <div class="details-content">
-                        <p>Szczegóły promocji znajdziesz po kliknięciu w przycisk poniżej.</p>
-                    </div>
-                    <a href="https://tmlead.pl/redirect/838640_383" class="cta-button" target="_blank" rel="nofollow">Sprawdź na stronie »</a>
                 </div>
             </div>
         </div>
