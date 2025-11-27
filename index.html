@@ -11,42 +11,26 @@
             font-family: 'Fredoka', sans-serif;
             margin: 0;
             padding: 0;
+            /* Główny gradient zostaje */
             background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
             color: #444;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative; /* Ważne, aby shapes mogły się po nim pozycjonować */
+            z-index: 1; /* Kontener dla shapes */
         }
 
         /* ---------------------------------------------------- */
-        /* --- TŁO NAGŁÓWKA (Ruchome Kolorowe Kształty) --- */
+        /* --- NOWA SEKCJA CSS: TŁO CAŁEJ STRONY (Ruchome Kolorowe Kształty) --- */
         /* ---------------------------------------------------- */
-        .animated-header {
-            position: relative;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.5); 
-            backdrop-filter: blur(8px);
-            text-align: center;
-            padding: 40px 20px;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-            animation: slideDown 0.8s ease-out;
-            z-index: 10;
-        }
-
-        .animated-header h1, .animated-header p {
-            position: relative;
-            z-index: 15;
-        }
-        
         .shapes {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100%; /* Rozciągnięte na całą wysokość widoku */
             pointer-events: none;
+            z-index: 0; /* WAŻNE: Kształty pod całą treścią */
         }
         
         .shapes li {
@@ -61,21 +45,36 @@
         }
 
         /* Ustawienie różnych kolorów, rozmiarów i animacji */
-        .shapes li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; background: rgba(255, 255, 100, 0.7); /* ŻÓŁTY */ }
-        .shapes li:nth-child(2){ left: 10%; width: 35px; height: 35px; animation-delay: 2s; animation-duration: 12s; background: rgba(100, 255, 100, 0.7); /* ZIELONY */ }
-        .shapes li:nth-child(3){ left: 70%; width: 50px; height: 50px; animation-delay: 4s; background: rgba(255, 100, 100, 0.7); /* RÓŻOWY */ }
-        .shapes li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; background: rgba(100, 100, 255, 0.7); /* NIEBIESKI */ }
+        .shapes li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; background: rgba(255, 255, 100, 0.7); }
+        .shapes li:nth-child(2){ left: 10%; width: 35px; height: 35px; animation-delay: 2s; animation-duration: 12s; background: rgba(100, 255, 100, 0.7); }
+        .shapes li:nth-child(3){ left: 70%; width: 50px; height: 50px; animation-delay: 4s; background: rgba(255, 100, 100, 0.7); }
+        .shapes li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; background: rgba(100, 100, 255, 0.7); }
         .shapes li:nth-child(5){ left: 65%; width: 25px; height: 25px; animation-delay: 0s; animation-duration: 9s; background: rgba(255, 255, 255, 0.8); }
-        .shapes li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; background: rgba(255, 100, 255, 0.7); /* FIOLETOWY */ }
+        .shapes li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; background: rgba(255, 100, 255, 0.7); }
 
         @keyframes animate {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
             100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
         }
         /* ---------------------------------------------------- */
-        /* --- KONIEC CSS DLA NAGŁÓWKA --- */
+        /* --- KONIEC CSS DLA TŁA CAŁEJ STRONY --- */
         /* ---------------------------------------------------- */
 
+
+        .animated-header {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.5); 
+            backdrop-filter: blur(8px);
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            animation: slideDown 0.8s ease-out;
+            z-index: 10; /* Zapewnia, że nagłówek jest nad shapes */
+        }
 
         header h1 {
             margin: 0;
@@ -97,7 +96,8 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 0 20px 40px 20px;
-            z-index: 20;
+            position: relative; /* Zapewnia, że treść jest nad shapes */
+            z-index: 5;
         }
 
         /* --- KARTY OFERT (Animacje jak poprzednio) --- */
@@ -137,18 +137,9 @@
         }
         .bonus-highlight { color: #00c6ff; font-weight: 800; }
 
-        /* Layout w środku karty */
-        .offer-layout { display: flex; flex-direction: column; gap: 20px; }
-        @media (min-width: 768px) {
-            .offer-layout { flex-direction: row; align-items: flex-start; }
-            .offer-content { flex: 2; }
-            .offer-actions { flex: 1; min-width: 260px; }
-        }
-
         /* Lista zalet */
         .features { list-style: none; padding: 0; margin: 0; font-size: 1.1rem; color: #555; }
         .features li { margin-bottom: 8px; display: flex; align-items: center; }
-        /* Emotikon jako znak listy */
         .features li::before { content: '⭐'; font-size: 1rem; margin-right: 10px; } 
 
         /* --- PRZYCISKI --- */
@@ -169,20 +160,13 @@
         .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 114, 255, 0.5); }
         .cta-button:active { transform: translateY(2px); box-shadow: 0 2px 5px rgba(0, 114, 255, 0.4); }
 
-        /* --- ROZWIJANE SZCZEGÓŁY --- */
-        .details-content {
-            display: none; background: #f8fbff; border-radius: 15px; padding: 20px;
-            margin-top: 10px; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6;
-            border: 1px solid #e1e8ed;
-        }
-
         /* --- SEKCJA KONTAKTOWA (INSTAGRAM) --- */
         .contact-box {
             background: #fff; border-radius: 25px; padding: 30px; text-align: center;
             margin-top: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             animation: fadeInUp 1s ease-out forwards; animation-delay: 1.4s; opacity: 0;
+            position: relative; z-index: 5;
         }
-        .contact-box h3 { margin-top: 0; color: #333; }
         
         .insta-btn {
             display: inline-block;
@@ -196,14 +180,10 @@
         /* STOPKA */
         footer {
             text-align: center; color: #fff; font-size: 0.9rem; opacity: 0.8; padding: 30px 20px;
+            position: relative; z-index: 5;
         }
-        /* Styl dla licznika (dostosowanie do estetyki strony) */
-        footer #counter-container {
-            margin-top: 10px;
-            font-weight: bold;
-            display: block;
-        }
-
+        
+        footer #counter-container { margin-top: 10px; font-weight: bold; display: block; }
 
         /* --- KLUCZOWE KLATKI ANIMACJI (Keyframes) --- */
         @keyframes fadeInUp {
@@ -225,18 +205,18 @@
 </head>
 <body>
 
+    <ul class="shapes">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
     <header class="animated-header">
         <h1>💰 Łowca Promocji Bankowych 🏦</h1>
         <p>🥳 Najlepsze bonusy na start czekają na Ciebie!</p>
-        
-        <ul class="shapes">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
     </header>
 
     <div class="container">
